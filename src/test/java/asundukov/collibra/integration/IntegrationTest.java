@@ -48,17 +48,6 @@ public class IntegrationTest {
         String actual = client.getMessage();
         assertEquals("HI test-client",  actual);
 
-        sleep(400);
-        client.sendMessage("HI, I AM test-client2");
-        sleep(400);
-        client.sendMessage("HI, I AM test-client3");
-        sleep(400);
-        client.sendMessage("HI, I AM test-client4");
-        sleep(400);
-        client.sendMessage("HI, I AM test-client5");
-        sleep(400);
-        client.sendMessage("HI, I AM test-client6");
-
         client.stopConnection();
     }
 
