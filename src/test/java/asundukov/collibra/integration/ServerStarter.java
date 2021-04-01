@@ -31,10 +31,7 @@ public class ServerStarter {
                 return;
             }
         });
-        thread.setDaemon(false);
         thread.start();
-
-        sleep(300);
 
         return port;
     }

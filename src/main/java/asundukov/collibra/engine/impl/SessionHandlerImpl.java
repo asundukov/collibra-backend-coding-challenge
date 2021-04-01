@@ -4,8 +4,12 @@ import asundukov.collibra.engine.CommandHandler;
 import asundukov.collibra.engine.MessageSender;
 import asundukov.collibra.engine.SessionHandler;
 import asundukov.collibra.engine.TimeoutDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SessionHandlerImpl implements SessionHandler {
+    private static final Logger log = LoggerFactory.getLogger(SessionHandlerImpl.class);
+
     private final String sessionId;
     private final MessageSender messageSender;
     private final TimeoutDetector timeoutHandler;
@@ -30,14 +34,14 @@ public class SessionHandlerImpl implements SessionHandler {
 
     @Override
     public void fromClient(String text) {
-        System.out.println(getSessionId() + " -> " + text);
+        log.info("{} -> {}", getSessionId(), text);
         timeoutHandler.renew(this);
         commandHandler = commandHandler.handle(text);
     }
 
     @Override
     public void toClient(String text) {
-        System.out.println(getSessionId() + " <- " + text);
+        log.info("{} <- {}", getSessionId(), text);
         messageSender.send(text);
     }
 
