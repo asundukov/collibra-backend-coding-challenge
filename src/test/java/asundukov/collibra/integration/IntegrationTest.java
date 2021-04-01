@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegrationTest {
@@ -13,8 +12,8 @@ public class IntegrationTest {
     private static int port = 50000;
 
     @BeforeAll
-    public static void beforeAll() throws InterruptedException {
-        //port = ServerStarter.startServer();
+    public static void beforeAll() throws InterruptedException, IOException {
+        port = ServerStarter.startServer(30000);
     }
 
     @Test
@@ -50,5 +49,6 @@ public class IntegrationTest {
 
         client.stopConnection();
     }
+
 
 }

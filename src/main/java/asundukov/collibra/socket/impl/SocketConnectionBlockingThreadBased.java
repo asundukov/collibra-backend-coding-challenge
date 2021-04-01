@@ -4,6 +4,8 @@ import asundukov.collibra.engine.Engine;
 import asundukov.collibra.engine.SessionHandler;
 import asundukov.collibra.engine.impl.MessageSenderImpl;
 import asundukov.collibra.socket.SocketConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class SocketConnectionBlockingThreadBased implements SocketConnection {
+    private static final Logger log = LoggerFactory.getLogger(SocketConnectionBlockingThreadBased.class);
+
     private final Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
@@ -29,13 +33,11 @@ public class SocketConnectionBlockingThreadBased implements SocketConnection {
                 this.out = new PrintWriter(clientSocket.getOutputStream(), true);
                 this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             } catch (IOException e) {
-                System.out.println("Cannot open streams: " + e.getMessage());
+                log.error("Cannot open streams: {}", e.getMessage());
                 e.printStackTrace();
                 close();
                 return;
             }
-
-            SocketConnectionBlockingThreadBased socketConnection = this;
 
             SessionHandler sessionHandler = engine.createSession(new MessageSenderImpl(this, this.out));
             sessionHandler.start();

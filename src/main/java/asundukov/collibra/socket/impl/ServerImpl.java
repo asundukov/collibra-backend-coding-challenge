@@ -5,24 +5,24 @@ import asundukov.collibra.engine.impl.EngineDefault;
 import asundukov.collibra.engine.impl.IdGeneratorUUID4;
 import asundukov.collibra.engine.impl.TimeoutDetectorImpl;
 import asundukov.collibra.socket.Server;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerImpl implements Server {
 
-    private final int port;
+public class ServerImpl implements Server {
+    private static final Logger log = LoggerFactory.getLogger(ServerImpl.class);
+
     private final long timeout;
-    private ServerSocket serverSocket;
+    private final ServerSocket serverSocket;
 
     public ServerImpl(int port, long timeout) throws IOException {
-        this.port = port;
         this.timeout = timeout;
-
-        System.out.println("Start listening on port " + port);
         serverSocket = new ServerSocket(port);
-        System.out.println("Started");
+        log.info("Start listening on port {}", port);
     }
 
     @Override
@@ -32,13 +32,12 @@ public class ServerImpl implements Server {
 
         while (!Thread.interrupted()) {
             Socket clientSocket = serverSocket.accept();
-            System.out.println("New connection accepted on port " + clientSocket.getPort());
-            try (SocketConnectionBlockingThreadBased socketConnection = new SocketConnectionBlockingThreadBased(clientSocket)) {
-                socketConnection.start(engine);
-                System.out.println("Socket connection handler started " + clientSocket.getPort());
-            }
-        }
-        close();
+            log.info("New connection accepted on port {}", clientSocket.getPort());
+            SocketConnectionBlockingThreadBased socketConnection = new SocketConnectionBlockingThreadBased(clientSocket);
+            socketConnection.start(engine);
+            log.info("Socket connection handler started {}", clientSocket.getPort());
+       }
+       close();
     }
 
     @Override
