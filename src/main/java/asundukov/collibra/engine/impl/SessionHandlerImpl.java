@@ -28,7 +28,8 @@ public class SessionHandlerImpl implements SessionHandler {
     public void start() {
         sessionStartedTime = System.currentTimeMillis();
         timeoutHandler.renew(this);
-        CommandHandler initState = new CommandHandlerGreeting(this);
+        CommandHandlerGraphFactory commandHandlerGraphFactory = new CommandHandlerGraphFactory();
+        CommandHandler initState = new CommandHandlerGreeting(this, commandHandlerGraphFactory);
         setCommandHandler(initState);
     }
 

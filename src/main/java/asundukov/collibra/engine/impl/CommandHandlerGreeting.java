@@ -11,11 +11,14 @@ import static java.util.regex.Pattern.compile;
 
 public class CommandHandlerGreeting extends SessionCommandHandler {
     private static final String HELLO_PATTERN = "HI, I AM %s";
-    private static final Pattern HI_PATTERN = compile("^HI, I AM ([a-zA-Z0-9-]+)$");
+    private static final Pattern HI_PATTERN = compile("^HI, I AM ([\\w\\d-]+)$");
 
-    public CommandHandlerGreeting(SessionHandler sessionHandler) {
+    private final CommandHandlerGraphFactory commandHandlerGraphFactory;
+
+    public CommandHandlerGreeting(SessionHandler sessionHandler, CommandHandlerGraphFactory commandHandlerGraphFactory) {
         super(sessionHandler);
         sessionHandler.toClient(getHelloMessage(sessionHandler.getSessionId()));
+        this.commandHandlerGraphFactory = commandHandlerGraphFactory;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class CommandHandlerGreeting extends SessionCommandHandler {
         if (matcher.matches()) {
             sessionHandler.setClientName(matcher.group(1));
             sessionHandler.toClient("HI " + sessionHandler.getClientName());
-            return new CommandHandlerGraph(sessionHandler);
+            return commandHandlerGraphFactory.create(sessionHandler);
         } else {
             sessionHandler.toClient(DONT_KNOW_ANSWER);
         }

@@ -41,7 +41,7 @@ public class SocketConnectionBlockingThreadBased implements SocketConnection {
 
             SessionHandler sessionHandler = engine.createSession(new MessageSenderImpl(this, this.out));
             sessionHandler.start();
-            System.out.println(sessionHandler.getSessionId() + ": <started>");
+            log.info("{}: <started>", sessionHandler.getSessionId());
 
             String received;
             try {
@@ -49,14 +49,14 @@ public class SocketConnectionBlockingThreadBased implements SocketConnection {
                     sessionHandler.fromClient(received);
                 }
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                log.info(e.getMessage());
                 if (!e.getMessage().equals("Socket closed")) {
                     e.printStackTrace();
                 }
             } finally {
                 sessionHandler.closeSession();
                 close();
-                System.out.println(sessionHandler.getSessionId() + ": <closed>");
+                log.info("{}: <closed>", sessionHandler.getSessionId());
             }
         });
 
