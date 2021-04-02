@@ -2,6 +2,7 @@ package asundukov.collibra.engine.impl;
 
 import asundukov.collibra.engine.CommandHandler;
 import asundukov.collibra.engine.SessionHandler;
+import asundukov.collibra.engine.graph.Graph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,6 +10,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,14 +19,15 @@ import static org.mockito.Mockito.when;
 class CommandHandlerGraphTest {
     private static final String DONT_KNOW_RESPONSE = "SORRY, I DID NOT UNDERSTAND THAT";
 
-    private final SessionHandler sessionHandler = Mockito.mock(SessionHandler.class);
+    private final SessionHandler sessionHandler = mock(SessionHandler.class);
+    private final Graph graph = mock(Graph.class);
     private CommandHandler handler;
 
     @BeforeEach
     public void beforeEach() {
         reset(sessionHandler);
         when(sessionHandler.getClientName()).thenReturn("JHON");
-        handler = new CommandHandlerGraph(sessionHandler);
+        handler = new CommandHandlerGraph(sessionHandler, graph);
     }
 
     @Test

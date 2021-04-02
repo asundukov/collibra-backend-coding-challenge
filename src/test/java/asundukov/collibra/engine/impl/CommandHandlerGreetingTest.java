@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,7 +18,8 @@ class CommandHandlerGreetingTest {
     private static final String ID = "some-session-id";
     private static final String DONT_KNOW_RESPONSE = "SORRY, I DID NOT UNDERSTAND THAT";
 
-    private final SessionHandler sessionHandler = Mockito.mock(SessionHandler.class);
+    private final SessionHandler sessionHandler = mock(SessionHandler.class);
+    private final CommandHandlerGraphFactory commandHandlerGraphFactory = new CommandHandlerGraphFactory();
 
     @BeforeEach
     public void beforeEach() {
@@ -27,13 +29,13 @@ class CommandHandlerGreetingTest {
 
     @Test
     void initialGreetingFromCommand() {
-        new CommandHandlerGreeting(sessionHandler);
+        new CommandHandlerGreeting(sessionHandler, commandHandlerGraphFactory);
         verify(sessionHandler, times(1)).toClient("HI, I AM " + ID);
     }
 
     @Test
     void correctGreetingBehavior() {
-        CommandHandler handler = new CommandHandlerGreeting(sessionHandler);
+        CommandHandler handler = new CommandHandlerGreeting(sessionHandler, commandHandlerGraphFactory);
 
         CommandHandler newHandler = handler.handle("HI, I AM unit-test");
 
@@ -44,7 +46,7 @@ class CommandHandlerGreetingTest {
     @Test
     void correctGreetingResponse() {
         when(sessionHandler.getClientName()).thenReturn("unit-test");
-        CommandHandler handler = new CommandHandlerGreeting(sessionHandler);
+        CommandHandler handler = new CommandHandlerGreeting(sessionHandler, commandHandlerGraphFactory);
 
         handler.handle("HI, I AM unit-test");
 
@@ -53,7 +55,7 @@ class CommandHandlerGreetingTest {
 
     @Test
     void incorrectRequest() {
-        CommandHandler handler = new CommandHandlerGreeting(sessionHandler);
+        CommandHandler handler = new CommandHandlerGreeting(sessionHandler, commandHandlerGraphFactory);
 
         CommandHandler newActualHandler = handler.handle("HELLO, I AM someone");
 
@@ -63,7 +65,7 @@ class CommandHandlerGreetingTest {
 
     @Test
     void incorrectClientName() {
-        CommandHandler handler = new CommandHandlerGreeting(sessionHandler);
+        CommandHandler handler = new CommandHandlerGreeting(sessionHandler, commandHandlerGraphFactory);
 
         handler.handle("HELLO, I AM C3PO_");
 

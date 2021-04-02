@@ -1,4 +1,4 @@
-package asundukov.collibra.engine.graph;
+package asundukov.collibra.engine.graph.impl;
 
 import java.util.HashMap;
 
