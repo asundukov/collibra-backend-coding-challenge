@@ -4,7 +4,6 @@ import asundukov.sockets.graph.engine.graph.Graph;
 import asundukov.sockets.graph.engine.graph.exception.NodeAlreadyExistsException;
 import asundukov.sockets.graph.engine.graph.exception.NodeDoesNotExistException;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

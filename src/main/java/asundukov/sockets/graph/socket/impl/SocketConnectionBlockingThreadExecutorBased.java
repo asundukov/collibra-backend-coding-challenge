@@ -6,27 +6,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class SocketConnectionBlockingThreadBased implements SocketConnection {
-    private static final Logger log = LoggerFactory.getLogger(SocketConnectionBlockingThreadBased.class);
-
+public class SocketConnectionBlockingThreadExecutorBased implements SocketConnection {
+    private static final Logger log = LoggerFactory.getLogger(SocketConnectionBlockingThreadExecutorBased.class);
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
     private final SocketConnection socketConnection;
 
 
-    public SocketConnectionBlockingThreadBased(SocketConnection socketConnection) {
+    public SocketConnectionBlockingThreadExecutorBased(SocketConnection socketConnection) {
         this.socketConnection = socketConnection;
     }
 
     @Override
     public void start(Engine engine) throws IOException {
-        Thread thread = new Thread(() -> {
+        executorService.submit(() -> {
             try {
                 socketConnection.start(engine);
             } catch (IOException e) {
                 close();
             }
         });
-        thread.start();
     }
 
     @Override

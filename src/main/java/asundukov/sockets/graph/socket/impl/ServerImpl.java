@@ -5,6 +5,7 @@ import asundukov.sockets.graph.engine.impl.EngineDefault;
 import asundukov.sockets.graph.engine.impl.IdGeneratorUUID4;
 import asundukov.sockets.graph.engine.impl.TimeoutDetectorImpl;
 import asundukov.sockets.graph.socket.Server;
+import asundukov.sockets.graph.socket.SocketConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +34,9 @@ public class ServerImpl implements Server {
         while (!Thread.interrupted()) {
             Socket clientSocket = serverSocket.accept();
             log.info("New connection accepted on port {}", clientSocket.getPort());
-            SocketConnectionBlockingThreadBased socketConnection = new SocketConnectionBlockingThreadBased(clientSocket);
-            socketConnection.start(engine);
+            SocketConnection socketConnection = new SocketConnectionBlockCurrentThreadBased(clientSocket);
+            SocketConnection socketConnectionThreaded = new SocketConnectionBlockingThreadExecutorBased(socketConnection);
+            socketConnectionThreaded.start(engine);
             log.info("Socket connection handler started {}", clientSocket.getPort());
        }
        close();

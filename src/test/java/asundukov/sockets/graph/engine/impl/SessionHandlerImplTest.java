@@ -19,6 +19,7 @@ class SessionHandlerImplTest {
     private final MessageSender messageSender = mock(MessageSender.class);
     private final TimeoutDetector timeoutDetector = mock(TimeoutDetector.class);
     private final CommandHandler handler = mock(CommandHandler.class);
+    private final CommandHandlerGraphFactory commandHandlerGraphFactory = new CommandHandlerGraphFactory();
     private SessionHandler sessionHandler;
 
     @BeforeEach
