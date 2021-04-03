@@ -11,6 +11,10 @@ public class Node {
         this.nodeId = nodeId;
     }
 
+    public String getNodeId() {
+        return nodeId;
+    }
+
     public void addIncoming(Node from, int weight) {
         incomingEdges
                 .compute(from, (k, v) -> v == null ? weight : Math.min(weight, v));

@@ -4,10 +4,11 @@ import asundukov.sockets.graph.engine.graph.Graph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GraphImplTest {
-
 
     private Graph graph;
 
@@ -58,7 +59,25 @@ class GraphImplTest {
         graph.addEdge("D", "B", 1);
         graph.addEdge("D", "E", 6);
 
+        assertEquals(11, graph.shortestPath("A", "C"));
+        assertEquals(4, graph.shortestPath("D", "E"));
         assertEquals(20, graph.shortestPath("A", "E"));
+    }
+
+    @Test
+    void getCloserThan() {
+        addAllNodes("A", "B", "C", "D", "E");
+
+        graph.addEdge("A", "B", 20);
+        graph.addEdge("A", "C", 11);
+        graph.addEdge("B", "D", 1);
+        graph.addEdge("B", "E", 3);
+        graph.addEdge("C", "D", 5);
+        graph.addEdge("D", "B", 1);
+        graph.addEdge("D", "E", 6);
+
+        assertEquals(Arrays.asList("B", "C", "D"), graph.closerThan(20, "A"));
+        assertEquals(Arrays.asList("B", "C", "D", "E"), graph.closerThan(50, "A"));
     }
 
     private void addAllNodes(String... nodeId) {

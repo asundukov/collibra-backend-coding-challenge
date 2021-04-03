@@ -25,7 +25,7 @@ class SessionHandlerImplTest {
     public void beforeEach() {
         reset(messageSender);
         reset(handler);
-        sessionHandler = new SessionHandlerImpl("default-session-id", messageSender, timeoutDetector);
+        sessionHandler = new SessionHandlerImpl("default-session-id", messageSender, timeoutDetector, commandHandlerGraphFactory);
         sessionHandler.setCommandHandler(handler);
     }
 

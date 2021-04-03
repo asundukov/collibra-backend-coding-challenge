@@ -59,6 +59,17 @@ enum GraphCommand {
         } catch (NodeDoesNotExistException e) {
             return "ERROR: NODE NOT FOUND";
         }
+    }),
+    CLOSER_THAN("^CLOSER THAN ([\\d]+) ([\\w\\d-]+)$", (Graph g, Matcher m) -> {
+        try {
+            BigInteger value = new BigInteger(m.group(1));
+            if (value.compareTo(BigInteger.valueOf(Integer.MAX_VALUE)) > 0) {
+                return CommandHandler.DONT_KNOW_ANSWER;
+            }
+            return String.join(",", g.closerThan(value.intValue(), m.group(2)));
+        } catch (NodeDoesNotExistException e) {
+            return "ERROR: NODE NOT FOUND";
+        }
     });
 
     private final Pattern pattern;

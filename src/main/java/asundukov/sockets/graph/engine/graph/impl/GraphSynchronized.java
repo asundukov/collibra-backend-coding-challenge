@@ -2,6 +2,8 @@ package asundukov.sockets.graph.engine.graph.impl;
 
 import asundukov.sockets.graph.engine.graph.Graph;
 
+import java.util.List;
+
 public class GraphSynchronized implements Graph {
 
     private final Graph graph;
@@ -33,6 +35,11 @@ public class GraphSynchronized implements Graph {
     @Override
     public synchronized int shortestPath(String from, String to) {
         return graph.shortestPath(from, to);
+    }
+
+    @Override
+    public synchronized List<String> closerThan(int distance, String from) {
+        return graph.closerThan(distance, from);
     }
 
 }
