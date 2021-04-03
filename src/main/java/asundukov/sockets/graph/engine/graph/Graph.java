@@ -1,5 +1,7 @@
 package asundukov.sockets.graph.engine.graph;
 
+import java.util.List;
+
 public interface Graph {
     void add(String nodeId);
 
@@ -10,4 +12,6 @@ public interface Graph {
     void removeEdge(String from, String to);
 
     int shortestPath(String from, String to);
+
+    List<String> closerThan(int distance, String from);
 }

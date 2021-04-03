@@ -15,20 +15,22 @@ public class SessionHandlerImpl implements SessionHandler {
     private final TimeoutDetector timeoutHandler;
     private long sessionStartedTime;
 
+    private final CommandHandlerGraphFactory commandHandlerGraphFactory;
     private CommandHandler commandHandler = new DefaultCommandHandlerState();
     private String clientName = "";
 
-    public SessionHandlerImpl(String sessionId, MessageSender messageSender, TimeoutDetector timeoutDetector) {
+    public SessionHandlerImpl(String sessionId, MessageSender messageSender,
+                              TimeoutDetector timeoutDetector, CommandHandlerGraphFactory commandHandlerGraphFactory) {
         this.sessionId = sessionId;
         this.messageSender = messageSender;
         this.timeoutHandler = timeoutDetector;
+        this.commandHandlerGraphFactory = commandHandlerGraphFactory;
     }
 
     @Override
     public void start() {
         sessionStartedTime = System.currentTimeMillis();
         timeoutHandler.renew(this);
-        CommandHandlerGraphFactory commandHandlerGraphFactory = new CommandHandlerGraphFactory();
         CommandHandler initState = new CommandHandlerGreeting(this, commandHandlerGraphFactory);
         setCommandHandler(initState);
     }

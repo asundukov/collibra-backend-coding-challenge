@@ -10,6 +10,7 @@ public class EngineDefault implements Engine {
 
     private final IdGenerator idGenerator;
     private final TimeoutDetector timeoutDetector;
+    private final CommandHandlerGraphFactory commandHandlerGraphFactory = new CommandHandlerGraphFactory();
 
     public EngineDefault(IdGenerator idGenerator, TimeoutDetector timeoutDetector) {
         this.idGenerator = idGenerator;
@@ -19,7 +20,7 @@ public class EngineDefault implements Engine {
     @Override
     public SessionHandler createSession(MessageSender messageSender) {
         String sessionId = idGenerator.getNewId();
-        return new SessionHandlerImpl(sessionId, messageSender, timeoutDetector);
+        return new SessionHandlerImpl(sessionId, messageSender, timeoutDetector, commandHandlerGraphFactory);
     }
 
 }
