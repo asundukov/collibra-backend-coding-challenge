@@ -2,7 +2,7 @@
 
 ### Requirements
 
-* Java 11
+* Java 8
 
 ### Run
 
