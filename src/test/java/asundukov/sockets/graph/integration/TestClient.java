@@ -21,8 +21,13 @@ public class TestClient {
         }
     }
 
-    public void sendMessage(String msg) {
-        out.println(msg);
+    public String sendAndGetMessage(String message) {
+        sendMessage(message);
+        return getMessage();
+    }
+
+    public void sendMessage(String message) {
+        out.println(message);
     }
 
     public String getMessage() {

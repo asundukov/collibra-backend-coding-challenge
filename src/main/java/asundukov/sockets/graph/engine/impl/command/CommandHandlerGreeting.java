@@ -23,9 +23,6 @@ public class CommandHandlerGreeting extends SessionCommandHandler {
 
     @Override
     public CommandHandler handle(String message) {
-        if (message == null) {
-            return this;
-        }
         Matcher matcher = HI_PATTERN.matcher(message);
         if (matcher.matches()) {
             sessionHandler.setClientName(matcher.group(1));
