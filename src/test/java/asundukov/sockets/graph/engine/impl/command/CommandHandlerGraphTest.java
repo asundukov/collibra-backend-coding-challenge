@@ -1,8 +1,10 @@
-package asundukov.sockets.graph.engine.impl;
+package asundukov.sockets.graph.engine.impl.command;
 
 import asundukov.sockets.graph.engine.CommandHandler;
 import asundukov.sockets.graph.engine.SessionHandler;
 import asundukov.sockets.graph.engine.graph.Graph;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerBye;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ class CommandHandlerGraphTest {
     private CommandHandler handler;
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         reset(sessionHandler);
         when(sessionHandler.getClientName()).thenReturn("JHON");
         handler = new CommandHandlerGraph(sessionHandler, graph);
@@ -39,7 +41,7 @@ class CommandHandlerGraphTest {
 
     @Test
     void handleWrong() {
-        CommandHandler nextHandler = handler.handle("SOMECOMMAND");
+        CommandHandler nextHandler = handler.handle("SOME COMMAND");
 
         verify(sessionHandler, times(1)).toClient(DONT_KNOW_RESPONSE);
         assertEquals(handler, nextHandler);

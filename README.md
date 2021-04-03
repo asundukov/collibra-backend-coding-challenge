@@ -23,8 +23,3 @@
   read and write operations working at the same time
 
 (Right now they are out of scope of task)
-  
-### Sources
-
-There are sime unused classes which reflects developming progress (they were replaced 
-by better optimized classes)

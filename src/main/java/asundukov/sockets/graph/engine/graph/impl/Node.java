@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class Node {
     private final String nodeId;
-    HashMap<Node, Integer> outcomingEdges = new HashMap<>();
-    HashMap<Node, Integer> incomingEdges = new HashMap<>();
+    final HashMap<Node, Integer> outcomingEdges = new HashMap<>();
+    final HashMap<Node, Integer> incomingEdges = new HashMap<>();
 
     public Node(String nodeId) {
         this.nodeId = nodeId;

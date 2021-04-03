@@ -25,7 +25,7 @@ public class SocketConnectionBlockCurrentThreadBased implements SocketConnection
     }
 
     @Override
-    public void start(Engine engine) throws IOException {
+    public void start(Engine engine) {
         try {
             this.out = new PrintWriter(clientSocket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));

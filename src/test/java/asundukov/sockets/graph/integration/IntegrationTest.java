@@ -1,9 +1,8 @@
 package asundukov.sockets.graph.integration;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -12,12 +11,17 @@ public class IntegrationTest {
     private static int port = 50000;
 
     @BeforeAll
-    public static void beforeAll() throws InterruptedException, IOException {
+    static void beforeAll() {
         port = ServerStarter.startServer(300);
     }
 
+    @AfterAll
+    static void afterAll() throws Exception {
+        ServerStarter.stopServer();
+    }
+
     @Test
-    public void testServer() throws IOException {
+    void testServer() {
         TestClient client = new TestClient();
         client.startConnection("127.0.0.1", port);
         String greeting = client.getMessage();
@@ -27,7 +31,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testGreetingFail() throws IOException {
+    void testGreetingFail() {
         TestClient client = new TestClient();
         client.startConnection("127.0.0.1", port);
         client.getMessage();
@@ -39,7 +43,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testGreetingSuccess() throws IOException, InterruptedException {
+    void testGreetingSuccess() {
         TestClient client = new TestClient();
         client.startConnection("127.0.0.1", port);
         client.getMessage();
@@ -51,7 +55,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testTimeout() throws IOException {
+    void testTimeout() {
         TestClient client = getGreetedClient();
         String msg = client.getMessage();
         assertEquals("BYE test-client, WE SPOKE FOR ", msg.substring(0, 30));
@@ -61,7 +65,7 @@ public class IntegrationTest {
 
 
     @Test
-    public void testAddNodeDeleteNode() throws IOException, InterruptedException {
+    void testAddNodeDeleteNode() {
         TestClient client = getGreetedClient();
         client.sendMessage("ADD NODE node-1");
         String response = client.getMessage();
@@ -77,7 +81,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testAddDeleteErrors() throws IOException, InterruptedException {
+    void testAddDeleteErrors() {
         TestClient client = getGreetedClient();
         client.sendMessage("REMOVE NODE node-1");
         String response = client.getMessage();
@@ -94,7 +98,7 @@ public class IntegrationTest {
         client.stopConnection();
     }
 
-    private TestClient getGreetedClient() throws IOException {
+    private TestClient getGreetedClient() {
         TestClient client = new TestClient();
         client.startConnection("127.0.0.1", port);
         client.getMessage();

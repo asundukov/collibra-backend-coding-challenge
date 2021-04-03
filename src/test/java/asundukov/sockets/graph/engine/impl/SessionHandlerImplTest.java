@@ -4,6 +4,7 @@ import asundukov.sockets.graph.engine.CommandHandler;
 import asundukov.sockets.graph.engine.MessageSender;
 import asundukov.sockets.graph.engine.SessionHandler;
 import asundukov.sockets.graph.engine.TimeoutDetector;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGraphFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,7 @@ class SessionHandlerImplTest {
     private SessionHandler sessionHandler;
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         reset(messageSender);
         reset(handler);
         sessionHandler = new SessionHandlerImpl("default-session-id", messageSender, timeoutDetector, commandHandlerGraphFactory);

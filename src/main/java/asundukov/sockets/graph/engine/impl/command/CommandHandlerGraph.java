@@ -1,18 +1,15 @@
-package asundukov.sockets.graph.engine.impl;
+package asundukov.sockets.graph.engine.impl.command;
 
 import asundukov.sockets.graph.engine.CommandHandler;
 import asundukov.sockets.graph.engine.SessionHandler;
 import asundukov.sockets.graph.engine.graph.Graph;
-import asundukov.sockets.graph.engine.impl.graph.GraphCommandChecker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import asundukov.sockets.graph.engine.impl.command.graph.GraphCommandChecker;
 
 public class CommandHandlerGraph extends SessionCommandHandler {
-    private static final Logger log = LoggerFactory.getLogger(CommandHandlerGraph.class);
     private static final String BYE_REQUEST = "BYE MATE!";
     private final Graph graph;
 
-    protected CommandHandlerGraph(SessionHandler sessionHandler, Graph graph) {
+    CommandHandlerGraph(SessionHandler sessionHandler, Graph graph) {
         super(sessionHandler);
         this.graph = graph;
     }

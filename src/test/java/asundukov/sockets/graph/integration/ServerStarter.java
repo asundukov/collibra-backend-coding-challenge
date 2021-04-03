@@ -1,17 +1,13 @@
 package asundukov.sockets.graph.integration;
 
+import asundukov.sockets.graph.socket.Server;
 import asundukov.sockets.graph.socket.impl.ServerImpl;
 
-import java.io.IOException;
-
-import static java.lang.Thread.sleep;
-
 public class ServerStarter {
-    private static ServerImpl server;
+    private static Server server;
     private static int port = 0;
-    private static long timeout = 0;
 
-    public static int startServer(long timeout) throws InterruptedException {
+    public static int startServer(long timeout) {
         for (int i = 50000; i < 51000; i++) {
             try {
                 server = new ServerImpl(i, timeout);
@@ -26,8 +22,7 @@ public class ServerStarter {
         Thread thread = new Thread(() -> {
             try {
                 server.start();
-            } catch (Exception e) {
-                return;
+            } catch (Exception ignored) {
             }
         });
         thread.start();
@@ -35,7 +30,7 @@ public class ServerStarter {
         return port;
     }
 
-    public static void stopServer() throws IOException {
+    public static void stopServer() throws Exception {
         server.close();
     }
 }

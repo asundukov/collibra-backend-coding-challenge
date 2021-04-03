@@ -13,7 +13,7 @@ class GraphImplTest {
     private Graph graph;
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         graph = new GraphImpl();
     }
 

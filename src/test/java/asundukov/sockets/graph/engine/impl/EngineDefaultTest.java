@@ -22,7 +22,7 @@ class EngineDefaultTest {
     private final IdGenerator idGenerator = mock(IdGenerator.class);
     private final TimeoutDetector timeoutDetector = mock(TimeoutDetector.class);
 
-    public EngineDefaultTest() {
+    EngineDefaultTest() {
         when(idGenerator.getNewId()).thenReturn(ID);
     }
 

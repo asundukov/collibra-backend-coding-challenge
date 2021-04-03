@@ -5,6 +5,7 @@ import asundukov.sockets.graph.engine.IdGenerator;
 import asundukov.sockets.graph.engine.MessageSender;
 import asundukov.sockets.graph.engine.SessionHandler;
 import asundukov.sockets.graph.engine.TimeoutDetector;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGraphFactory;
 
 public class EngineDefault implements Engine {
 

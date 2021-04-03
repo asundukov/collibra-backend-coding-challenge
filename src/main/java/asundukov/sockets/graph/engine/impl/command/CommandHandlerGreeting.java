@@ -1,4 +1,4 @@
-package asundukov.sockets.graph.engine.impl;
+package asundukov.sockets.graph.engine.impl.command;
 
 import asundukov.sockets.graph.engine.CommandHandler;
 import asundukov.sockets.graph.engine.SessionHandler;

@@ -11,31 +11,39 @@ public class TestClient {
     private PrintWriter out;
     private BufferedReader in;
 
-    public void startConnection(String ip, int port) throws IOException {
-        clientSocket = new Socket(ip, port);
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+    public void startConnection(String ip, int port) {
+        try {
+            clientSocket = new Socket(ip, port);
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void sendMessage(String msg) throws IOException {
+    public void sendMessage(String msg) {
         out.println(msg);
     }
 
-    public void sendMessage2(String msg) throws IOException {
-        out.print("22");
+    public String getMessage() {
+        try {
+            String received;
+            do {
+                received = in.readLine();
+            } while (received == null);
+            return received;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String getMessage() throws IOException {
-        String received;
-//        do {
-            received = in.readLine();
-//        } while (received == null);
-        return received;
-    }
-
-    public void stopConnection() throws IOException {
-        in.close();
-        out.close();
-        clientSocket.close();
+    public void stopConnection() {
+        try {
+            in.close();
+            out.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

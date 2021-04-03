@@ -1,6 +1,7 @@
 package asundukov.sockets.graph.engine.graph.impl;
 
 import asundukov.sockets.graph.engine.graph.Graph;
+import asundukov.sockets.graph.engine.graph.GraphCalculator;
 import asundukov.sockets.graph.engine.graph.exception.NodeAlreadyExistsException;
 import asundukov.sockets.graph.engine.graph.exception.NodeDoesNotExistException;
 
@@ -56,14 +57,16 @@ public class GraphImpl implements Graph {
 
     @Override
     public int shortestPath(String from, String to) {
-        return (new ShortestPathCalculator(getExistedNode(from)))
-                .calculateDistance(getExistedNode(to));
+        return getGraphCalculator(from).calculateDistance(getExistedNode(to));
     }
 
     @Override
     public List<String> closerThan(int distance, String from) {
-        return (new ShortestPathCalculator(getExistedNode(from)))
-                .getAllCloserThan(distance);
+        return getGraphCalculator(from).getAllCloserThan(distance);
+    }
+
+    private GraphCalculator getGraphCalculator(String fromNode) {
+        return new ShortestPathCalculator(getExistedNode(fromNode));
     }
 
     private Node getExistedNode(String nodeId) {

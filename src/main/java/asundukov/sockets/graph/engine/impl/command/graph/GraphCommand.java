@@ -1,4 +1,4 @@
-package asundukov.sockets.graph.engine.impl.graph;
+package asundukov.sockets.graph.engine.impl.command.graph;
 
 import asundukov.sockets.graph.engine.graph.Graph;
 import asundukov.sockets.graph.engine.graph.exception.NodeAlreadyExistsException;

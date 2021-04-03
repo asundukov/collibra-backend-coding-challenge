@@ -1,4 +1,4 @@
-package asundukov.sockets.graph.engine.impl.graph;
+package asundukov.sockets.graph.engine.impl.command.graph;
 
 import asundukov.sockets.graph.engine.graph.Graph;
 import asundukov.sockets.graph.engine.graph.exception.NodeDoesNotExistException;
@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.reset;
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.verify;
 
 class GraphCommandCheckerTest {
 
-    private Graph graph = mock(Graph.class);
+    private final Graph graph = mock(Graph.class);
 
     @BeforeEach
     public void beforeEach() {

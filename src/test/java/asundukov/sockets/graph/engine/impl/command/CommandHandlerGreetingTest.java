@@ -1,7 +1,10 @@
-package asundukov.sockets.graph.engine.impl;
+package asundukov.sockets.graph.engine.impl.command;
 
 import asundukov.sockets.graph.engine.CommandHandler;
 import asundukov.sockets.graph.engine.SessionHandler;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGraph;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGraphFactory;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGreeting;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +24,7 @@ class CommandHandlerGreetingTest {
     private final CommandHandlerGraphFactory commandHandlerGraphFactory = new CommandHandlerGraphFactory();
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         reset(sessionHandler);
         when(sessionHandler.getSessionId()).thenReturn(ID);
     }

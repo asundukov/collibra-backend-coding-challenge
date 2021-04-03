@@ -4,6 +4,9 @@ import asundukov.sockets.graph.engine.CommandHandler;
 import asundukov.sockets.graph.engine.MessageSender;
 import asundukov.sockets.graph.engine.SessionHandler;
 import asundukov.sockets.graph.engine.TimeoutDetector;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGraphFactory;
+import asundukov.sockets.graph.engine.impl.command.CommandHandlerGreeting;
+import asundukov.sockets.graph.engine.impl.command.DefaultCommandHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +19,7 @@ public class SessionHandlerImpl implements SessionHandler {
     private long sessionStartedTime;
 
     private final CommandHandlerGraphFactory commandHandlerGraphFactory;
-    private CommandHandler commandHandler = new DefaultCommandHandlerState();
+    private CommandHandler commandHandler = new DefaultCommandHandler();
     private String clientName = "";
 
     public SessionHandlerImpl(String sessionId, MessageSender messageSender,

@@ -1,11 +1,13 @@
 package asundukov.sockets.graph.engine.graph.impl;
 
+import asundukov.sockets.graph.engine.graph.GraphCalculator;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ShortestPathCalculator {
+public class ShortestPathCalculator implements GraphCalculator {
     private final Node startNode;
     private Node targetNode;
 
@@ -16,6 +18,7 @@ public class ShortestPathCalculator {
         this.startNode = startNode;
     }
 
+    @Override
     public int calculateDistance(Node targetNode) {
         this.targetNode = targetNode;
         if (startNode.equals(targetNode)) {
@@ -26,6 +29,7 @@ public class ShortestPathCalculator {
         return currentTheShortestDistance;
     }
 
+    @Override
     public List<String> getAllCloserThan(int distance) {
         this.currentTheShortestDistance = distance;
         findShortestPathToChildren(startNode, 0);
